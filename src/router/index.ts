@@ -3,6 +3,7 @@ import AdminDashboard from "../Views/AdminDashboard.vue";
 import AddPackage from "../Views/AddPackage.vue";
 import ShowPackage from "../Views/ShowPackages.vue";
 import EditPackage from "../Views/EditPackage.vue";
+import ConfirmOrders from "../Views/ConfirmOrders.vue";
 
 const routes = [
   { path: "/", name: "Dashboard", component: AdminDashboard }, // ✅ เพิ่ม path นี้
@@ -10,6 +11,7 @@ const routes = [
   { path: "/add-package", name: "AddPackage", component: AddPackage },
   { path: "/show-package", name: "Showpackage", component: ShowPackage },
   { path: '/edit-package/:id', name: 'EditPackage', component: EditPackage }, // ✅ สำคัญ
+  { path: '/confirmOrder', name: 'ConfirmOrders', component: ConfirmOrders }, // ✅ สำคัญ
 
 ];
 

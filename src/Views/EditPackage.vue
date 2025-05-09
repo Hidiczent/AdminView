@@ -247,6 +247,7 @@ import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
 import PackageImageManager from "../components/PackageImages.vue";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const route = useRoute();
 const router = useRouter();
@@ -257,7 +258,7 @@ const showImages = ref(false);
 onMounted(async () => {
   try {
     const id = route.params.id;
-    const res = await axios.get(`http://192.168.80.141:5001/packages/package/${id}`);
+    const res = await axios.get(`http://172.20.10.2:5001/packages/package/${id}`);
 
     const parsedForm = {
       ...res.data,
@@ -294,7 +295,7 @@ async function updatePackage() {
       return;
     }
 
-    await axios.put(`http://192.168.80.141:5001/packages/package/${id}`, payload);
+    await axios.put(`http://172.20.10.2:5001/packages/package/${id}`, payload);
 
     Swal.fire("✅ Success", "Package updated!", "success");
     originalForm.value = currentSnapshot; // update original for next edit

@@ -147,6 +147,7 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import Swal from "sweetalert2";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const form = ref({
   title: "",
@@ -177,23 +178,28 @@ const packageTypes = ref([]);
 const villages = ref([]);
 
 onMounted(async () => {
-  accommodations.value = (
-    await axios.get("http://192.168.80.141:5001/accommodation/gets")
-  ).data;
-  guides.value = (
-    await axios.get("http://192.168.80.141:5001/guide/guide")
-  ).data;
-  transportations.value = (
-    await axios.get("http://192.168.80.141:5001/transportation/gets")
-  ).data;
-  foods.value = (await axios.get("http://192.168.80.141:5001/food/food")).data;
-  packageTypes.value = (
-    await axios.get("http://192.168.80.141:5001/kindofpackage/kind-of-package")
-  ).data;
-  villages.value = (
-    await axios.get("http://192.168.80.141:5001/village/gets")
-  ).data;
+  try {
+    const [accommodationRes, guideRes, transportationRes, foodRes, packageTypeRes, villageRes] = await Promise.all([
+      axios.get("http://172.20.10.2:5001/accommodation/gets"),
+      axios.get("http://172.20.10.2:5001/guide/guide"),
+      axios.get("http://172.20.10.2:5001/transportation/gets"),
+      axios.get("http://172.20.10.2:5001/food/food"),
+      axios.get("http://172.20.10.2:5001/kindofpackage/kind-of-package"),
+      axios.get("http://172.20.10.2:5001/village/gets")
+    ]);
+
+    accommodations.value = accommodationRes.data;
+    guides.value = guideRes.data;
+    transportations.value = transportationRes.data;
+    foods.value = foodRes.data;
+    packageTypes.value = packageTypeRes.data;
+    villages.value = villageRes.data;
+
+  } catch (error) {
+    console.error("❌ Failed to fetch initial data:", error);
+  }
 });
+
 
 const submitPackage = async () => {
   try {
@@ -218,7 +224,7 @@ const submitPackage = async () => {
 
     console.log("✅ Payload before sending:", payload);
 
-    await axios.post("http://192.168.80.141:5001/packages/package", payload);
+    await axios.post("http://172.20.10.2:5001/packages/package", payload);
     Swal.fire("✅ Success", "Package created!", "success");
     form.value = {};
   } catch (err) {

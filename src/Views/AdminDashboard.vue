@@ -7,7 +7,7 @@
       </h2>
       <nav class="flex flex-col space-y-2">
         <RouterLink
-          to="/admin"
+          to="/"
           class="py-2 px-4 text-[#0a5a9a] rounded block hover:bg-[#0a5a9a] hover:text-white transition"
           active-class="bg-[#0a5a9a] text-white"
         >
@@ -28,6 +28,13 @@
           active-class="bg-[#0a5a9a] text-white"
         >
           ➕ Add Package
+        </RouterLink>
+        <RouterLink
+          to="/confirmOrder"
+          class="py-2 px-4 text-[#0a5a9a] rounded block hover:bg-[#0a5a9a] hover:text-white transition"
+          active-class="bg-[#0a5a9a] text-white"
+        >
+        ✅ ConfirmOrder
         </RouterLink>
       </nav>
     </aside>
@@ -108,12 +115,14 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { RouterLink } from "vue-router";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const stats = ref({ total: 0, admins: 0, users: 0 });
 const users = ref([]);
-
+console.log("API_BASE_URL:", API_BASE_URL);
+console.log("VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
 onMounted(async () => {
-  const res = await axios.get("http://192.168.80.141:5001/users/gets/user");
+  const res = await axios.get("http://172.20.10.2:5001/users/gets/user");
   users.value = res.data;
 
   stats.value.total = users.value.length;
@@ -136,7 +145,7 @@ async function deleteUser(id) {
 
   if (result.isConfirmed) {
     try {
-      await axios.delete(`http://192.168.80.141:5001/users/delete/${id}`);
+      await axios.delete(`http://172.20.10.2/users/delete/${id}`);
       users.value = users.value.filter((u) => u.user_id !== id);
       Swal.fire(
         "Successful!",
