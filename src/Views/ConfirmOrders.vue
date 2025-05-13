@@ -122,7 +122,7 @@ const selectedOrder = ref(null);
 const fetchPendingOrders = async () => {
   try {
     const res = await axios.get(
-      "http://172.20.10.2:5001/orders/orders/admin-view"
+      "http://192.168.80.141:5002/orders/orders/admin-view"
     );
     orders.value = res.data.filter((o) =>
       ["pending", "confirmed", "cancelled"].includes(
@@ -151,7 +151,7 @@ const confirm = async (id) => {
   });
   if (result.isConfirmed) {
     try {
-      await axios.post(`http://172.20.10.2:5001/orders/orders/confirm/${id}`);      Swal.fire("Confirmed!", "Order has been confirmed.", "success");
+      await axios.post(`http://192.168.80.141:5002/orders/orders/confirm/${id}`);      Swal.fire("Confirmed!", "Order has been confirmed.", "success");
       fetchPendingOrders();
     } catch (err) {
       Swal.fire(
@@ -182,7 +182,7 @@ const cancelOrderByAdmin = async (orderId) => {
 
   if (result.isConfirmed) {
     try {
-      await axios.put(`http://172.20.10.2:5001/orders/admin/cancel/${orderId}`);
+      await axios.put(`http://192.168.80.141:5002/orders/admin/cancel/${orderId}`);
       Swal.fire("Cancelled!", "Order has been cancelled.", "success");
       fetchPendingOrders();
     } catch (err) {

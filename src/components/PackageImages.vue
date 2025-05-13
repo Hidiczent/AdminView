@@ -66,7 +66,7 @@
   
   const fetchImages = async () => {
     try {
-      const res = await axios.get(`http://172.20.10.2:5001/packageImage/package-images/${props.packageId}`)
+      const res = await axios.get(`http://192.168.80.141:5002/packageImage/package-images/${props.packageId}`)
       images.value = res.data
     } catch (err) {
       console.error('❌ Failed to fetch images:', err)
@@ -75,7 +75,7 @@
   
   const deleteImage = async (id) => {
   try {
-    await axios.delete(`http://172.20.10.2:5001/packageImage/package-image/${id}`)
+    await axios.delete(`http://192.168.80.141:5002/packageImage/package-image/${id}`)
     images.value = images.value.filter(img => img.image_id !== id)
     Swal.fire("Deleted", "Image deleted successfully", "success")
   } catch (err) {
@@ -94,7 +94,7 @@
     if (imageUrls.length === 0) return
   
     try {
-      await axios.post("http://172.20.10.2:5001/packageImage/package-image", {
+      await axios.post("http://192.168.80.141:5002/packageImage/package-image", {
         package_id: props.packageId,
         image_url: imageUrls
       })
@@ -109,7 +109,7 @@
   
   const updateImage = async (id, url) => {
     try {
-      await axios.put(`http://172.20.10.2:5001/packageImage/package-image/${id}`, {
+      await axios.put(`http://192.168.80.141:5002/packageImage/package-image/${id}`, {
         image_url: url
       })
       Swal.fire("Updated", "Image updated successfully", "success")

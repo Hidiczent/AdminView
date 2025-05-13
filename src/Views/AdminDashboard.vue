@@ -122,7 +122,7 @@ const users = ref([]);
 console.log("API_BASE_URL:", API_BASE_URL);
 console.log("VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
 onMounted(async () => {
-  const res = await axios.get("http://172.20.10.2:5001/users/gets/user");
+  const res = await axios.get("http://192.168.80.141:5002/users/gets/user");
   users.value = res.data;
 
   stats.value.total = users.value.length;
@@ -139,13 +139,14 @@ async function deleteUser(id) {
     confirmButtonColor: "#e3342f",
     cancelButtonColor: "#6c757d",
     confirmButtonText: "Confirm",
+    
     cancelButtonText: "Cancel",
     showCloseButton: true,
   });
 
   if (result.isConfirmed) {
     try {
-      await axios.delete(`http://172.20.10.2/users/delete/${id}`);
+      await axios.delete(`http://192.168.80.141:5002/users/delete/${id}`);
       users.value = users.value.filter((u) => u.user_id !== id);
       Swal.fire(
         "Successful!",

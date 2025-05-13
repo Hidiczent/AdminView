@@ -90,7 +90,7 @@ const packages = ref([]);
 
 onMounted(async () => {
   try {
-    const res = await axios.get("http://172.20.10.2:5001/packages/packages");
+    const res = await axios.get("http://192.168.80.141:5002/packages/packages");
     packages.value = res.data;
   } catch (err) {
     console.error("❌ Failed to fetch packages:", err);

@@ -180,12 +180,12 @@ const villages = ref([]);
 onMounted(async () => {
   try {
     const [accommodationRes, guideRes, transportationRes, foodRes, packageTypeRes, villageRes] = await Promise.all([
-      axios.get("http://172.20.10.2:5001/accommodation/gets"),
-      axios.get("http://172.20.10.2:5001/guide/guide"),
-      axios.get("http://172.20.10.2:5001/transportation/gets"),
-      axios.get("http://172.20.10.2:5001/food/food"),
-      axios.get("http://172.20.10.2:5001/kindofpackage/kind-of-package"),
-      axios.get("http://172.20.10.2:5001/village/gets")
+      axios.get("http://192.168.80.141:5002/accommodation/gets"),
+      axios.get("http://192.168.80.141:5002/guide/guide"),
+      axios.get("http://192.168.80.141:5002/transportation/gets"),
+      axios.get("http://192.168.80.141:5002/food/food"),
+      axios.get("http://192.168.80.141:5002/kindofpackage/kind-of-package"),
+      axios.get("http://192.168.80.141:5002/village/gets")
     ]);
 
     accommodations.value = accommodationRes.data;
@@ -224,7 +224,7 @@ const submitPackage = async () => {
 
     console.log("✅ Payload before sending:", payload);
 
-    await axios.post("http://172.20.10.2:5001/packages/package", payload);
+    await axios.post("http://192.168.80.141:5002/packages/package", payload);
     Swal.fire("✅ Success", "Package created!", "success");
     form.value = {};
   } catch (err) {
